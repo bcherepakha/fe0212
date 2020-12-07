@@ -1,0 +1,47 @@
+html,
+body {
+    font-family: "Open Sans";
+    font-size: 12px;
+}
+
+body {
+    margin: 0;
+}
+
+#first {
+    width: 100%;
+    min-height: 100vh;
+    background: url(img/header.jpg) center top no-repeat;
+    background-size: cover;
+    /* border: 1px solid red; */
+    padding-top: 41px;
+}
+
+h1 {
+    font-family: "Bebas Neue", serif;
+    font-size: 5rem;
+    line-height: 1.167;
+    letter-spacing: .47578rem;
+    text-align: center;
+
+    color: #FFFFFF;
+}
+
+#first .logo {
+    display: block;
+    width: 103px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#first .logo img,
+.logo__image {
+    display: block;
+    width: 100%;
+}
+
+.main-description {
+    text-align: center;
+
+    color: #FFFFFF;
+}
