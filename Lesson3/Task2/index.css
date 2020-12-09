@@ -1,0 +1,150 @@
+.card {
+    box-sizing: border-box; /* w = c + p + b */
+
+    /* width: 200px; */
+
+    padding: 30px 15px 15px;
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 11px;
+    line-height: 1.18;
+
+    color: #000000;
+
+    background: #FFFFFF;
+    border: 1px solid #F3F3F3;
+    border-radius: 5px;
+}
+
+.card:hover {
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.07);
+}
+
+.card__image-wrapper {
+    display: block;
+    width: 100%;
+}
+
+.card__image {
+    display: block;
+    width: 100%;
+}
+
+.card__title {
+    margin-top: 40px;
+
+    font-weight: bold;
+    font-size: 1.19em;
+    line-height: 1.25;
+
+    color: #000000;
+}
+
+.card__key {
+    margin-top: 6px;
+}
+
+.card__row {
+    margin-top: 15px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card__rating {
+    flex: 0 0 auto;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.card__rating-star {
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 15px;
+    height: 15px;
+
+    fill: #E5E5E5;
+}
+
+/* .card__rating-star:not(:first-child) */
+.card__rating-star + .card__rating-star {
+    margin-left: 4px;
+}
+
+.card__rating-star--active {
+    fill: #FFDE6A;
+}
+
+.card__review {
+    flex: 0 0 auto;
+}
+
+.card__price-amount {
+    font-weight: bold;
+    font-size: 1.4545em;
+    line-height: 1.1875;
+}
+
+.card__actions {
+    margin-top: 20px;
+}
+
+.card__buy {
+    display: block;
+    box-sizing: border-box;
+
+    border: 0;
+    cursor: pointer;
+
+    width: 100%;
+    padding: 12px;
+
+    background: #00ACDC;
+    border-radius: 5px;
+
+    font-weight: bold;
+    font-size: 1.2727em;
+    line-height: 1.14286;
+
+    text-align: center;
+    text-transform: uppercase;
+
+    color: #FFFFFF;
+}
+
+
+.content {
+    background: lightcyan;
+
+    width: 1224px;
+    margin: 0 auto;
+
+    display: flex;
+    flex-wrap: wrap;
+
+    /* justify-content: space-between; */
+}
+
+.card {
+    margin-bottom: 12px;
+
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 24%;
+
+    min-width: 200px;
+}
+
+.card:not(:nth-child(4n+1)) {
+    margin-left: calc(4% / 3);
+}
+
+
+.card:nth-last-child(-n+3):nth-child(4n+1),
+.card:nth-last-child(-n+3):nth-child(4n+1) ~ .card {
+    margin-bottom: 0;
+}
