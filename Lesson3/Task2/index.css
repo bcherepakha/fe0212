@@ -148,3 +148,21 @@
 .card:nth-last-child(-n+3):nth-child(4n+1) ~ .card {
     margin-bottom: 0;
 }
+
+.card__rating--interactive {
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+
+.card__rating--interactive .card__rating-star:hover {
+    fill: #FFDE6A;
+}
+
+.card__rating--interactive .card__rating-star:hover ~ .card__rating-star {
+    fill: #FFDE6A;
+}
+
+.card__rating--interactive .card__rating-star + .card__rating-star {
+    margin-right: 4px;
+    margin-left: 0;
+}
