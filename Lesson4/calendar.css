@@ -1,0 +1,97 @@
+body {
+    font-family: Roboto;
+}
+
+.day-view {
+    padding: 80px 140px;
+}
+
+.day-view__title {
+    display: flex;
+
+    padding-bottom: 90px;
+
+    border-bottom: 2px solid #F3F3F3;
+}
+
+.day-view__day-text {
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 42px;
+
+    color: #243D6F;
+}
+
+.day-view__time-list {
+    list-style: none;
+    padding: 100px 0 0;
+    margin: 0;
+}
+
+.day-view__time-row {
+    position: relative;
+
+    display: block;
+
+    height: 120px;
+
+    margin-left: 135px;
+
+    border-bottom: 2px solid #F3F3F3;
+
+    box-sizing: border-box;
+
+    z-index: 1;
+}
+
+.day-view__time-key {
+    position: absolute;
+    top: 0;
+    left: -135px;
+
+    transform: translateY(-50%);
+
+    font-weight: 500;
+    font-size: 26px;
+    line-height: 30px;
+
+
+    color: #A4B0C3;
+
+}
+
+.day-view__event {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    padding: 12px 75px;
+
+    background: rgba(133, 118, 237, 0.15);
+    border-left: 6px solid #8576ED;
+
+    box-sizing: border-box;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 33px;
+
+    color: #243D6F;
+
+    z-index: 10;
+}
+
+.day-view__event--workshop {
+    background: rgba(61, 131, 249, 0.15);
+    border-color: #3D83F9;
+}
+
+.day-view__event--management {
+    background: rgba(238, 165, 124, 0.15);
+    border-color: #EEA57C;
+}
