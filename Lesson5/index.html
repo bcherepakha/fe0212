@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive image</title>
+    <style>
+        .block {
+            width: 100%;
+        }
+
+        .block img {
+            display: block;
+            width: 100%;
+        }
+
+        .row {
+            display: flex;
+        }
+
+        @media (max-width: 900px) {
+            .row {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- <div class="block" style="margin-bottom: 30px;">
+        <img
+            srcset="https://upload.wikimedia.org/wikipedia/commons/b/be/View_of_a_frosty_evening_through_a_window_on_a_Scottish_farm.jpg 4232w, https://scx2.b-cdn.net/gfx/news/hires/2019/water.jpg 1920w, https://cdn.images.express.co.uk/img/dynamic/151/590x/earth-orbit-change-dying-sun-asteroid-mining-solar-sail-space-news-1138008.webp?r=1581520373411 750w"
+            src="https://source.unsplash.com/user/erondu/1600x900"
+            alt="">
+    </div> -->
+
+    <div class="row">
+        <div class="block">
+            <img
+                srcset="https://upload.wikimedia.org/wikipedia/commons/b/be/View_of_a_frosty_evening_through_a_window_on_a_Scottish_farm.jpg 4232w, https://scx2.b-cdn.net/gfx/news/hires/2019/water.jpg 1920w, https://cdn.images.express.co.uk/img/dynamic/151/590x/earth-orbit-change-dying-sun-asteroid-mining-solar-sail-space-news-1138008.webp?r=1581520373411 750w"
+                sizes="(max-width: 900px) 100vw, 33vw"
+                src="https://source.unsplash.com/user/erondu/1600x900"
+                alt="">
+        </div>
+
+        <div class="block">
+            <img
+                srcset="https://upload.wikimedia.org/wikipedia/commons/b/be/View_of_a_frosty_evening_through_a_window_on_a_Scottish_farm.jpg 4232w, https://scx2.b-cdn.net/gfx/news/hires/2019/water.jpg 1920w, https://cdn.images.express.co.uk/img/dynamic/151/590x/earth-orbit-change-dying-sun-asteroid-mining-solar-sail-space-news-1138008.webp?r=1581520373411 750w"
+                sizes="(max-width: 900px) 100vw, 33vw"
+                src="https://source.unsplash.com/user/erondu/1600x900"
+                alt="">
+        </div>
+
+        <div class="block">
+            <img
+                srcset="https://upload.wikimedia.org/wikipedia/commons/b/be/View_of_a_frosty_evening_through_a_window_on_a_Scottish_farm.jpg 4232w, https://scx2.b-cdn.net/gfx/news/hires/2019/water.jpg 1920w, https://cdn.images.express.co.uk/img/dynamic/151/590x/earth-orbit-change-dying-sun-asteroid-mining-solar-sail-space-news-1138008.webp?r=1581520373411 750w"
+                sizes="(max-width: 900px) 100vw, 33vw"
+                src="https://source.unsplash.com/user/erondu/1600x900"
+                alt="">
+        </div>
+    </div>
+</body>
+</html>

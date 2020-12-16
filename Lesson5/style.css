@@ -1,0 +1,81 @@
+.first,
+.second {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.first .colored,
+.second .colored {
+    flex: 0 0 50%;
+}
+
+@media (min-width: 768px) {
+    .fourth,
+    .fifth {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .fourth .colored,
+    .fifth .colored {
+        flex: 1 0 50%;
+    }
+}
+
+@media (min-width: 960px) {
+    .third {
+        display: flex;
+    }
+
+    .fourth .colored {
+        flex: 1 0 30%;
+    }
+
+    .fourth .colored:nth-child(2) {
+        flex-grow: 0;
+    }
+}
+
+@media (min-width: 1200px) {
+    .third {
+        flex-wrap: wrap;
+    }
+
+    .third .colored {
+        flex: 1 0 50%;
+    }
+
+    .fifth {
+        justify-content: center;
+    }
+
+    .fifth .colored {
+        flex: 0 0 33%;
+    }
+}
+
+@media (min-width: 1800px) {
+    .first {
+        flex-wrap: nowrap;
+    }
+
+    .first .colored {
+        flex: 1 0 0;
+    }
+
+    .third .colored {
+        flex: 0 0 25%;
+    }
+
+    .fourth .colored {
+        flex: 0 0 25%;
+    }
+
+    .fourth .colored:last-child {
+        flex-grow: 1;
+    }
+
+    .fifth .colored {
+        flex: 1 0 0;
+    }
+}

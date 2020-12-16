@@ -46,7 +46,7 @@
     </div>
     <section class="section section--story">
         <div class="section__content">
-            <h2 class="section__title story__title">OUR STORY</h2>
+            <h2 class="section__title story__section-title">OUR STORY</h2>
             <div class="story">
                 <div class="story__content">
                     <p class="story__title">
@@ -57,7 +57,16 @@
                     </p>
                 </div>
                 <ul class="story__list">
-                    <li class="story__list-item">
+                    <!-- 140px, 280px -->
+                    <!-- 300px - 170px, 600px - 340px, 900px - 521px -->
+                    <!-- 560px 460px 360px 290px 170px -->
+                    <li class="story__list-item story__list-item--with-image">
+                        <img
+                            class="story__list-item-img"
+                            srcset="img/Img1w140.png 140w, img/Img1w211.png 211w, img/Img1w280.png 280w, img/Img1w420.png 420w, img/Img1w560.png 560w"
+                            sizes="(max-width: 961px) 30vw, 140px"
+                            src="img/Img1w280.png"
+                            alt="">
                         <a href="/">WE PLAN</a>
                     </li>
                     <li class="story__list-item">
