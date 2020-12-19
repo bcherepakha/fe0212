@@ -432,7 +432,115 @@ h1 {
     transform: translateX(-50%);
 }
 
+.want-to-build {
+    background: #171819 url(img/build-bg.jpg) top center no-repeat;
+    background-size: auto calc(100% + 2px);
+    width: 100%;
+    padding-top: 34.66%;
 
+    position: relative;
+}
+
+.want-to-build__content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.section--signup {
+    background: #171819;
+}
+
+.signup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+}
+
+.signup__title {
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 30px;
+    letter-spacing: 0.846154px;
+
+    color: #FFFFFF;
+
+    margin: 0 70px 0 0;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer__company-info {
+    flex: 0 0 26.54%;
+}
+
+.footer__nav {
+    flex: 0 0 27.87%;
+}
+
+.footer__contacts {
+    flex: 0 0 15%;
+}
+
+.footer__social {
+    flex: 0 0 9.25%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.footer__social-item {
+    font-size: 12px;
+    width: 1em;
+}
+
+.footer__social-link {
+    color: #fff;
+}
+
+.footer__social-link:hover {
+    color: #00A4E5;
+}
+
+.footer__social-icon {
+    fill: red;
+}
+
+.footer__title {
+    font-weight: normal;
+    font-size: 11px;
+    line-height: 15px;
+    letter-spacing: 0.846154px;
+
+    color: #FFFFFF;
+}
+
+.copy {
+    padding: 22px;
+    text-align: center;
+
+    font-size: 11px;
+    line-height: 15px;
+    letter-spacing: 0.846154px;
+
+    color: #FFFFFF;
+}
 
 /* adaptive */
 @media (max-width: 961px) {
