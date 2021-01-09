@@ -1,0 +1,23 @@
+{
+  "name": "fe0212",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bcherepakha/fe0212.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bcherepakha/fe0212/issues"
+  },
+  "homepage": "https://github.com/bcherepakha/fe0212#readme",
+  "devDependencies": {
+    "eslint": "^7.17.0",
+    "stylelint": "^13.8.0",
+    "stylelint-config-standard": "^20.0.0"
+  }
+}
