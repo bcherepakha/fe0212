@@ -1,5 +1,4 @@
 function Cross(props = {}) {
-
     this._props = props;
     // eslint-disable-next-line no-undef
     this._fullGameTimer = new Timer({
@@ -35,7 +34,7 @@ function Cross(props = {}) {
     };
 
     this._actionsEl.start.addEventListener('click', this.start.bind(this));
-    this._boardEl.addEventListener('click', this._listenClickByBoard.bind(this));
+    // this._boardEl.addEventListener('click', this._listenClickByBoard.bind(this));
 }
 
 Cross.EMTY_CEll = '';
@@ -53,12 +52,12 @@ Cross.prototype.setState = function(addedState) {
     }
 };
 
-Cross.prototype._listenClickByBoard = function(e) {
-    const cellEl = e.target.closest('.cross__board-item');
-    const cellIdx = +cellEl.dataset.index;
+// Cross.prototype._listenClickByBoard = function(e) {
+//     const cellEl = e.target.closest('.cross__board-item');
+//     const cellIdx = +cellEl.dataset.index;
 
-    this.move(cellIdx);
-};
+//     this.move(cellIdx);
+// };
 
 Cross.prototype._fillEmptyBoard = function() {
     this._boardEl.innerText = '';
@@ -68,12 +67,20 @@ Cross.prototype._fillEmptyBoard = function() {
     );
 };
 
+Cross.prototype._createItemClickListener = function(idx) {
+    return () => {
+        this.move(idx);
+    };
+};
+
 Cross.prototype._createBoardItemEl = function(idx) {
     const el = document.createElement('div');
 
     el.className = 'cross__board-item';
     // el.setAttribute('data-index', idx.toString());
     el.dataset.index = idx.toString();
+
+    el.addEventListener('click', this._createItemClickListener(idx));
 
     return el;
 };
@@ -121,13 +128,15 @@ Cross.prototype._create0El = function() {
 };
 
 Cross.prototype.start = function() {
-    const { currentUser } = this._state;
+    const currentUser = Cross.X_CEll;
     const currentUserTimer = this._users[currentUser].timer;
+    const nextUserTimer = this._users[Cross.O_CEll].timer;
 
     this._fullGameTimer.reset();
     this._fullGameTimer.start();
     currentUserTimer.reset();
     currentUserTimer.start();
+    nextUserTimer.reset();
 
     this.setState({
         board: new Array(9).fill(Cross.EMTY_CEll),
@@ -135,6 +144,49 @@ Cross.prototype.start = function() {
     });
 
     this._fillEmptyBoard();
+};
+
+Cross.prototype.isWin = function(board, checkedUser) {
+    function ckeckItem(item) {
+        return item.values.every(el => el === checkedUser);
+    }
+
+    for (let i = 0; i < 3; i++) {
+        const row = {
+            idx: i,
+            type: 'row',
+            values: [board[3*i + 0], board[3*i + 1], board[3*i + 2]],
+            cells: [this._boardItems[3*i + 0], this._boardItems[3*i + 1], this._boardItems[3*i + 2]]
+        };
+
+        if (ckeckItem(row)) {
+            return row;
+        }
+
+        const column = {
+            idx: i,
+            type: 'column',
+            values: [board[i + 0], board[i + 3], board[i + 6]],
+            cells: [this._boardItems[i + 0], this._boardItems[i + 3], this._boardItems[i + 6]]
+        };
+
+        if (ckeckItem(column)) {
+            return column;
+        }
+    }
+
+    return [{
+        idx: 0,
+        type: 'diagonal',
+        values: [board[0], board[4], board[8]],
+        cells: [this._boardItems[0], this._boardItems[4], this._boardItems[8]]
+    },
+    {
+        idx: 1,
+        type: 'diagonal',
+        values: [board[2], board[4], board[6]],
+        cells: [this._boardItems[2], this._boardItems[4], this._boardItems[6]]
+    }].find(item => ckeckItem(item));
 };
 
 Cross.prototype.move = function(cellIdx) {
@@ -155,10 +207,26 @@ Cross.prototype.move = function(cellIdx) {
     board[cellIdx] = currentUser;
     this._boardItems[cellIdx].append(svgEl);
 
+    const winItem = this.isWin(board, currentUser);
+
     this.setState({
         board,
         currentUser: nextUser
     });
 
-    nextUserTimer.start();
+    if (winItem) {
+        this._fullGameTimer.pause();
+        const wantNewGame = confirm(`Winner ${currentUser} by ${currentUserTimer.getTimeAsString()}. Do you want to start new game?`);
+
+        winItem.cells.forEach((cell) => {
+            cell.classList.add(`cross__board-item--${['win', winItem.type, winItem.type === 'diagonal' && winItem.idx].filter(el => el !== false).join('-')}`);
+        });
+
+        if (wantNewGame) {
+            return this.start();
+        }
+    } else {
+        nextUserTimer.start();
+    }
+
 };
