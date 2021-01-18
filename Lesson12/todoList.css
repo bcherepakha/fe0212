@@ -136,7 +136,7 @@ body {
 	position: absolute;
 }
 
-.complete-all+span {
+.complete-all + span {
 	color: #e6e6e6;
 
 	display: flex;
@@ -147,14 +147,13 @@ body {
 	left: 0;
 	right: 0;
 	bottom: 0;
-
 }
 
-.complete-all:checked+span {
+.complete-all:checked + span {
 	color: #737373;
 }
 
-.complete-all+span:before {
+.complete-all + span:before {
 	content: '❯';
 	font-size: 22px;
 }
