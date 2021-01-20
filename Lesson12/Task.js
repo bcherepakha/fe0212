@@ -1,13 +1,16 @@
 import { createElement, classNames } from './lib.js';
+import { Events } from './Events.js';
 
 const DOUBLE_CLICK_MAX_TIME = 300;
 
 export class Task {
-    constructor(taskData) {
+    constructor(taskData, onRemoveTask) {
         this._data = taskData;
         this._lastClickByText = null;
         this._ckickByTextTimeoutId = null;
         this._edit = false;
+        this._onRemoveTask = onRemoveTask;
+        this.events = new Events();
 
         this._createElement();
     }
@@ -40,6 +43,7 @@ export class Task {
         toggleEl.addEventListener('change', this._setCompleted.bind(this));
         taskTextEl.addEventListener('click', this._onClickByText.bind(this));
         formEl.addEventListener('submit', this._changeTaskText.bind(this));
+        destroyBtn.addEventListener('click', this._remove.bind(this));
 
         this._taskTextEl = taskTextEl;
         this._editEl = editEl;
@@ -54,10 +58,21 @@ export class Task {
         };
 
         this.render();
+        this.events.dispatch('change');
+    }
+
+    isActive() {
+        return !this._data.completed;
     }
 
     setCompleted(completed) {
         this.changeData({ completed });
+    }
+
+    _remove() {
+        if (this._onRemoveTask) {
+            this._onRemoveTask(this._data.id, this, this._rootEl);
+        }
     }
 
     _setCompleted() {

@@ -15,7 +15,12 @@ export class AddTaskForm {
         e.preventDefault();
         const text = this._taskTextEl.value;
         const completed = this._completeEl.checked;
-        const taskData = { text, completed };
+        const taskData = {
+            id: Date.now(),
+            creation_time: new Date(),
+            text,
+            completed
+        };
 
         this._taskTextEl.value = '';
 
