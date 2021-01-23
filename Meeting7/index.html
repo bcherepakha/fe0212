@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meeting 7</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.21/dist/vanta.waves.min.js" defer></script>
+    <script src="vawes.js" defer></script>
+    <script src="input.js" defer></script>
+</head>
+
+<body>
+
+    <form novalidate class="signup">
+        <div class="signup__body">
+            <label class="input signup__item">
+                <span class="input__title">Name</span>
+                <input class="input__body" type="text" name="name" required minLength="4" maxlength="12"/>
+            </label>
+            <label class="input signup__item">
+                <span class="input__title">E-mail</span>
+                <input class="input__body" type="email" name="email" required/>
+            </label>
+            <label class="input signup__item">
+                <span class="input__title">Password</span>
+                <input class="input__body" type="password" name="password" pattern="\S{8,}" required/>
+            </label>
+            <label class="input signup__item">
+                <span class="input__title">Confirm Password</span>
+                <input class="input__body" type="password" name="confirm" required/>
+                <span class="input__helper">this field contains an invalid password</span>
+            </label>
+        </div>
+        <div class="signup__actions">
+            <button class="signup__action signup__action--submit" type="submit">Sign Up</button>
+        </div>
+    </form>
+
+</body>
+
+</html>
