@@ -15,6 +15,14 @@ export class Task {
         this._createElement();
     }
 
+    get id() {
+        return this._data.id;
+    }
+
+    toString() {
+        return JSON.stringify(this._data);
+    }
+
     _createElement() {
         const { text, completed } = this._data;
         const taskTextEl = createElement('span', { innerText: text });

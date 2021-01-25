@@ -24,8 +24,6 @@ const list = new List({
     // onListUpdate
 });
 
-// console.log( list );
-
 const counter = new Counter({
     rootEl: document.querySelector('.todo-count strong')
 });
@@ -40,18 +38,28 @@ function appInit() {
     filter.addEventListener('change', onFilterChange);
     list.addEventListener('update', onListUpdate);
     counter.setCount( list.getCount() );
+
+    getDataFromLocalStorage();
 }
 
-function onAddTask(taskData) {
+function createTask(taskData) {
     const task = new Task({...taskData, id: Date.now()}, onRemoveTask);
 
     task.events.addEventListener('change', onTaskChange.bind(null, task));
+
+    return task;
+}
+
+function onAddTask(taskData) {
+    const task = createTask(taskData);
 
     tasks.push(task);
 
     if (isShown(task)) {
         list.addItem(task.render());
     }
+
+    updateLocalStorage();
 }
 
 function onRemoveTask(taskId, task, taskEl) {
@@ -60,6 +68,8 @@ function onRemoveTask(taskId, task, taskEl) {
     if (isShown(task)) {
         list.removeItem(taskEl);
     }
+
+    updateLocalStorage();
 }
 
 function onListUpdate() {
@@ -94,5 +104,28 @@ function onFilterChange() {
 function onTaskChange(task) {
     if (!isShown(task)) {
         list.removeItem(task.render());
+    }
+
+    updateLocalStorage();
+}
+
+function updateLocalStorage() {
+    localStorage.tasks = JSON.stringify(tasks.map(t => t.toString()));
+}
+
+function getDataFromLocalStorage() {
+    if (localStorage.tasks) {
+        try {
+            tasks = JSON.parse(localStorage.tasks).map(s => {
+                const taskData = JSON.parse(s);
+                const task = createTask(taskData);
+
+                return task;
+            });
+
+            onFilterChange();
+        } catch(ex) {
+            localStorage.removeItem('tasks');
+        }
     }
 }

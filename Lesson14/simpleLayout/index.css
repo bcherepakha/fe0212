@@ -1,0 +1,99 @@
+.menu,
+.news,
+.list,
+.footer,
+.nav,
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 2em;
+    color: #FBEAFF;
+}
+
+.menu {
+    background: #845EC2;
+}
+
+.news {
+    background: #2C73D2;
+}
+
+.list {
+    background: #0081CF;
+}
+
+.footer {
+    background: #0089BA;
+}
+
+.nav {
+    background: #008E9B;
+}
+
+.logo {
+    background: #008F7A;
+}
+
+/* GRID */
+html {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    min-height: 100%;
+
+    display: grid;
+
+    /*
+    grid-template: "logo menu menu" 100px
+        "news list nav" 65fr
+        "footer footer nav" 35fr / 100px 1fr 150px; */
+
+    grid-template-columns: 100px 65fr 35fr;
+    grid-template-rows: 100px 1fr 150px;
+    grid-template-areas: "logo menu menu"
+                         "news list nav"
+                         "footer footer nav";
+}
+
+.logo {
+    /* grid-row: 1; */
+    /* grid-column: 1; */
+    grid-area: logo;
+}
+
+.menu {
+    /* grid-row: 1; */
+    /* grid-column: 2 / 4; */
+    /* grid-column: 2 / -1; */
+    /* grid-column: 2 / span 2; */
+    /* grid-column: span 2 / -1; */
+    grid-area: menu;
+}
+
+.nav {
+    grid-column: 3 / -1;
+    grid-row: 2 / -1;
+    /* grid-area: nav; */
+}
+
+.list {
+    /* grid-column: 2 / 3; */
+    /* grid-row: 2 / 3; */
+    grid-area: list;
+}
+
+.news {
+    /* grid-column: 1 / 2; */
+    /* grid-row: 2 / 3; */
+    grid-area: news;
+}
+
+.footer {
+    /* grid-row: -2 / -1; */
+    /* grid-column: 1 / -2; */
+    grid-area: footer;
+}
