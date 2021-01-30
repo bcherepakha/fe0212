@@ -16,6 +16,7 @@
 
 ## Дополнительно
 
+* [6 Creative Website Menu Design Examples You Need to Copy](https://www.lean-labs.com/blog/website-menu-design-examples)
 * [Шаблоны](https://figma.info/)
 * [Список тестовых заданий для прокачки](https://github.com/Hexlet/ru-test-assignments)
 * [Frontend Developer Interview Questions](https://h5bp.org/Front-end-Developer-Interview-Questions/)
