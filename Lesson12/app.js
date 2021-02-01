@@ -63,6 +63,7 @@ function createTask(taskData) {
 async function onAddTask(taskData) {
     const data = await api.addTask(taskData);
     const task = createTask(data);
+
     tasks.push(task);
 
     if (isShown(task)) {
