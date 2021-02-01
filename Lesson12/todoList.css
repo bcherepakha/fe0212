@@ -444,3 +444,68 @@ html .clear-completed:active {
 		transform: rotate(360deg)
 	}
 }
+
+#loader {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+
+	background: rgb(0, 0, 0, .5);
+
+	z-index: 90;
+	display: block;
+}
+
+#loader.hide {
+	display: none;
+}
+
+#loader::before,
+#loader::after {
+	content: '';
+
+	display: block;
+
+	width: 40px;
+	height: 40px;
+
+	border-radius: 50%;
+
+	background: #f00;
+
+	position: absolute;
+	left: 50%;
+	top: 50%;
+
+	transform: rotate(0) translate(50%, -50%);
+	animation: loader-rotation-before 2s linear 0s infinite;
+}
+
+#loader::after {
+	background: #009;
+
+	transform: rotate(0) translate(-150%, -50%);
+	animation: loader-rotation-after 2s linear 0s infinite;
+}
+
+@keyframes loader-rotation-before {
+	from {
+		transform: rotate(0) translate(50%, -50%);
+	}
+
+	to {
+		transform: rotate(360deg) translate(50%, -50%);
+	}
+}
+
+@keyframes loader-rotation-after {
+	from {
+		transform: rotate(0) translate(-150%, -50%);
+	}
+
+	to {
+		transform: rotate(360deg) translate(-150%, -50%);
+	}
+}

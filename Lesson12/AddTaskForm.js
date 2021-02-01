@@ -17,7 +17,7 @@ export class AddTaskForm {
         const completed = this._completeEl.checked;
         const taskData = {
             id: Date.now(),
-            creation_time: new Date(),
+            createdAt: new Date(),
             text,
             completed
         };

@@ -11,6 +11,14 @@ import { Task } from './Task.js';
 import List from './List.js';
 import Counter from './Counter.js';
 import Filter from './Filter.js';
+import { Loader } from './Loader.js';
+import { TaskAPI } from './server.js';
+
+const loader = new Loader({
+    root: document.querySelector('#loader')
+});
+
+const api = new TaskAPI('https://5d9969125641430014051850.mockapi.io', loader);
 
 let tasks = [];
 
@@ -40,37 +48,41 @@ function appInit() {
     list.addEventListener('update', onListUpdate);
     counter.setCount( list.getCount() );
 
-    getDataFromLocalStorage();
+    // getDataFromLocalStorage();
+    getDataFromServer();
 }
 
 function createTask(taskData) {
-    const task = new Task({...taskData, id: Date.now()}, onRemoveTask);
+    const task = new Task({...taskData}, onRemoveTask);
 
     task.events.addEventListener('change', onTaskChange.bind(null, task));
 
     return task;
 }
 
-function onAddTask(taskData) {
-    const task = createTask(taskData);
-
+async function onAddTask(taskData) {
+    const data = await api.addTask(taskData);
+    const task = createTask(data);
     tasks.push(task);
 
     if (isShown(task)) {
         list.addItem(task.render());
     }
 
-    updateLocalStorage();
+    // updateLocalStorage();
 }
 
 function onRemoveTask(taskId, task, taskEl) {
-    tasks = tasks.filter(t => t.id !== taskId);
+    api.removeTask(taskId)
+        .then(() => {
+            tasks = tasks.filter(t => t.id !== taskId);
 
-    if (isShown(task)) {
-        list.removeItem(taskEl);
-    }
+            if (isShown(task)) {
+                list.removeItem(taskEl);
+            }
+        });
 
-    updateLocalStorage();
+    // updateLocalStorage();
 }
 
 function onListUpdate() {
@@ -107,13 +119,18 @@ function onTaskChange(task) {
         list.removeItem(task.render());
     }
 
-    updateLocalStorage();
+    api.updateTask(task.id, task.data)
+        .then(newTaskData => task.changeData(newTaskData, false));
+
+    // updateLocalStorage();
 }
 
+// eslint-disable-next-line no-unused-vars
 function updateLocalStorage() {
     localStorage.tasks = JSON.stringify(tasks.map(t => t.toString()));
 }
 
+// eslint-disable-next-line no-unused-vars
 function getDataFromLocalStorage() {
     if (localStorage.tasks) {
         try {
@@ -129,4 +146,18 @@ function getDataFromLocalStorage() {
             localStorage.removeItem('tasks');
         }
     }
+}
+
+function getDataFromServer() {
+    api
+        .getTasks()
+        .then(data => {
+            tasks = data.map(taskData => {
+                const task = createTask(taskData);
+
+                return task;
+            });
+
+            onFilterChange();
+        });
 }

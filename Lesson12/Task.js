@@ -19,6 +19,10 @@ export class Task {
         return this._data.id;
     }
 
+    get data() {
+        return {...this._data};
+    }
+
     toString() {
         return JSON.stringify(this._data);
     }
@@ -59,14 +63,17 @@ export class Task {
         this._rootEl = rootEl;
     }
 
-    changeData(newData) {
+    changeData(newData, dispatchEvent = true) {
         this._data = {
             ...this._data,
             ...newData
         };
 
         this.render();
-        this.events.dispatch('change');
+
+        if (dispatchEvent) {
+            this.events.dispatch('change');
+        }
     }
 
     isActive() {
