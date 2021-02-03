@@ -1,0 +1,142 @@
+html,
+body {
+    box-sizing: border-box;
+    color: #2c3e50;
+    font-size: 18px;
+    margin: 0;
+}
+
+header {
+    padding-bottom: 74px;
+}
+
+.header__nav {
+    display: flex;
+    justify-content: center;
+    background: #f8f9fa;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+
+    z-index: 1;
+}
+
+.header__nav-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+
+    max-width: 1200px;
+    width: 100%;
+    margin: 0;
+    padding: 12px;
+    list-style: none;
+
+    box-sizing: border-box;
+}
+
+.header__nav-list-item {
+    display: block;
+}
+
+.header__nav-list-item--main {
+    margin-right: auto;
+}
+
+.header__nav-link {
+    display: flex;
+    align-items: center;
+
+    text-decoration: none;
+    font-size: 1.4rem;
+    color: #20c997;
+    background: transparent;
+
+    padding: .5rem 1rem;
+}
+
+.header__nav-link:hover,
+.header__nav-link:focus {
+    color: #28a745;
+}
+
+.header__nav-link-icon {
+    width: 36px;
+    height: 36px;
+    margin-right: 12px;
+}
+
+.search {
+    background: #8bc1f7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.search__content {
+    width: 100%;
+    max-width: 1200px;
+    padding: 12px;
+    box-sizing: border-box;
+}
+
+.search-by-name {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.search-by-name__input {
+    flex: 1 0 auto;
+    max-width: 600px;
+}
+
+.search-by-name__toggle-filter.ui.button {
+    margin-left: auto;
+}
+
+.ui.cards.main {
+    width: 100%;
+    max-width: 1200px;
+    margin: 12px auto;
+}
+
+.main.cards > .card > .image {
+    display: flex;
+    justify-content: center;
+    background: #fff;
+}
+
+.main.cards > .card > .image > img {
+    height: 200px;
+    width: auto;
+}
+
+.card__count {
+    display: flex;
+    max-width: 80%;
+}
+
+.card__count-value {
+    width: 80px;
+    margin-right: .25em;
+}
+
+.card__count[hidden] {
+    display: none;
+}
+
+.card__buy[hidden] {
+    display: none;
+}
+
+.ui.cards > .card .image {
+    margin-top: .5em;
+    margin-bottom: .5em;
+}
+
+.ui.cards > .card.buyed,
+.ui.cards > .card.buyed:hover {
+    box-shadow: 0px 1px 3px 0px #ffc107, 0px 0px 0px 1px #ffc107;
+}

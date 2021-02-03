@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!-- Add favicon -->
+    <link rel="icon" href="shop.ico"><!-- 32×32 -->
+    <link rel="icon" href="shop.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="shop.png"><!-- 180×180 -->
+    <link rel="manifest" href="manifest.webmanifest">
+
+    <link rel="stylesheet" href="semantic.css">
+    <link rel="stylesheet" href="styles.css">
+
+    <title>Shop</title>
+
+    <script src="utils.js" type="module"></script>
+    <script src="beerApi.js" type="module"></script>
+    <script src="store.js" type="module"></script>
+    <script src="beer.js" type="module"></script>
+    <script src="searchForm.js" type="module"></script>
+    <script src="app.js" type="module"></script>
+  </head>
+  <body>
+    <header class="header">
+      <nav class="header__nav">
+        <ul class="header__nav-list">
+          <li class="header__nav-list-item header__nav-list-item--main">
+            <a class="header__nav-link" href="/">
+              <img class="header__nav-link-icon" src="./shop.png" alt="">
+              Catalog
+            </a>
+          </li>
+          <li class="header__nav-list-item">
+            <a class="header__nav-link" href="?route=favourites">
+              Favorites
+            </a>
+          </li>
+          <li class="header__nav-list-item">
+            <div class="header__nav-link ui labeled button">
+              <a class="ui button" href="?route=order">
+                <i class="shop icon"></i>
+              </a>
+              <a class="ui basic label basket-price" href="?route=order">
+                0.00
+              </a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <form class="search">
+      <div class="search__content search-by-name">
+        <div class="ui icon input search-by-name__input">
+          <!-- .loading for loading icon -->
+          <input
+            type="search"
+            placeholder="Search..."
+            name="beer_name">
+          <i class="search icon"></i>
+        </div>
+        <button type="button" class="ui teal button search-by-name__toggle-filter">
+          <!-- add class blue active -->
+          <i class="filter icon"></i>
+          Add filters
+        </button>
+      </div>
+    </form>
+    <div class="ui link cards main">
+      <div class="card">
+        <div class="image">
+          <img src="https://images.punkapi.com/v2/keg.png">
+        </div>
+        <div class="content">
+          <div class="header">
+            <span>
+              Buzz
+            </span>
+            <span class="right floated">
+              $29.00
+            </span>
+          </div>
+          <div class="description">
+            Some description
+          </div>
+        </div>
+        <div class="extra content">
+          <div class="ui vertical animated small blue button left floated card__buy" hidden tabindex="0">
+            <div class="hidden content">Buy</div>
+            <div class="visible content">
+              <i class="shop icon"></i>
+            </div>
+          </div>
+          <form class="card__count left floated card__buy-count-form">
+            <button type="button" class="ui icon small button card__count-back">
+              <i class="left chevron icon"></i>
+            </button>
+            <div class="ui input card__count-value">
+              <input type="text">
+            </div>
+            <button type="button" class="ui right icon small button card__count-add">
+              <i class="right chevron icon"></i>
+            </button>
+          </form>
+          <div class="right floated">
+            <i class="star icon big grey"></i>
+            <!-- yellow -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
