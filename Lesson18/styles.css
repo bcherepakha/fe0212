@@ -140,3 +140,17 @@ header {
 .ui.cards > .card.buyed:hover {
     box-shadow: 0px 1px 3px 0px #ffc107, 0px 0px 0px 1px #ffc107;
 }
+
+.description {
+    max-height: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pagination-cards {
+    width: 100%;
+    max-width: 1200px;
+    margin: 30px auto;
+    display: flex;
+    justify-content: center;
+}

@@ -8,6 +8,24 @@ export function stingifyParams(params) {
         .join('&');
 }
 
+export function parseParams(search = location.search) {
+    if (!search) {
+        return {};
+    }
+
+    const params = {};
+
+    decodeURI(search.slice(1))
+        .split('&')
+        .forEach(paramStr => {
+            const [key, value] = paramStr.split('=');
+
+            params[key] = value;
+        });
+
+    return params;
+}
+
 export function callOnceAfter(fn, time) {
     let lastCallTime = 0;
     let timeoutId = null;

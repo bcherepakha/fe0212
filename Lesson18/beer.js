@@ -1,6 +1,7 @@
 export default class Beer {
-    constructor(beerData, eventHandlers) {
+    constructor(beerData, eventHandlers, favorite = false) {
         this._data = beerData;
+        this._favorite = favorite;
         this._eventHandlers = eventHandlers;
         this._buyed = 0;
         this.createCard();
@@ -10,9 +11,22 @@ export default class Beer {
         return this._data.id;
     }
 
+    get favorite() {
+        return this._favorite;
+    }
+
     setBuyed(value = 0) {
         this._buyed = value;
         this.render();
+    }
+
+    setFavorite(favorite) {
+        this._favorite = favorite;
+        this.render();
+    }
+
+    togleFavorite() {
+        this.setFavorite(!this._favorite);
     }
 
     createCard() {
@@ -61,7 +75,7 @@ export default class Beer {
                     <i class="right chevron icon"></i>
                 </button>
             </form>
-            <div class="right floated">
+            <div class="right floated card__favorite">
                 <i class="star icon big grey"></i>
                 <!-- yellow -->
             </div>
@@ -74,6 +88,8 @@ export default class Beer {
         this._countInput = root.querySelector('.card__count-value input');
         this._addButton = root.querySelector('.card__count-add');
         this._decButton = root.querySelector('.card__count-back');
+        this._favorEl = root.querySelector('.card__favorite');
+        this._favorIcon = this._favorEl.querySelector('.icon');
 
         if (this._eventHandlers.buy) {
             this._buyBtn.addEventListener('click', this._eventHandlers.buy.bind(null, this));
@@ -82,6 +98,10 @@ export default class Beer {
 
         if (this._eventHandlers.decrease) {
             this._decButton.addEventListener('click', this._eventHandlers.decrease.bind(null, this));
+        }
+
+        if (this._eventHandlers.togleFavorite) {
+            this._favorEl.addEventListener('click', this._eventHandlers.togleFavorite.bind(null, this));
         }
     }
 
@@ -95,6 +115,14 @@ export default class Beer {
             this._root.classList.remove('buyed');
             this._buyBtn.hidden = false;
             this._buyForm.hidden = true;
+        }
+
+        if (this._favorite) {
+            this._favorIcon.classList.remove('grey');
+            this._favorIcon.classList.add('yellow');
+        } else {
+            this._favorIcon.classList.add('grey');
+            this._favorIcon.classList.remove('yellow');
         }
 
         return this._root;

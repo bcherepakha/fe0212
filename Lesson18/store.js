@@ -11,6 +11,7 @@ export default class Store {
     set(key, data) {
         this._store[key] = data;
         this.trigger('update');
+        this.trigger(`update-${key}`);
     }
 
     addEventListener(eventName, callback) {
