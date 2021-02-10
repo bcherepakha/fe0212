@@ -4,19 +4,21 @@ import SearchForm from './SearchForm.js';
 import Store from './store.js';
 import Basket from './basket.js';
 import { Pagination } from './pagination.js';
+import Router from './router.js';
 
 let beers;
 const appEl = document.querySelector('.main');
 const paginationContainer = document.querySelector('.pagination-cards');
-const defaultOptions = {
-    per_page: 12,
-    page: 1
-};
+
+const router = new Router(
+    onHistoryChanges, {
+        default: renderBeerList,
+        favourites: renderFavorites
+    });
 
 const pagination = new Pagination({
-    per_page: defaultOptions.per_page,
     container: paginationContainer,
-    onChange: onHistoryChanges,
+    router
 });
 
 const store = new Store({
@@ -25,20 +27,35 @@ const store = new Store({
     favorite: {}
 });
 
-const basket = new Basket(store);
+const basket = new Basket(store, getBeerData);
 
-store.addEventListener('update-favorite', onFavoriteUpdate);
-store.addEventListener('update-beers', onBeersUpdate);
-window.addEventListener('popstate', onHistoryChanges);
+store.addEventListener('update-favorite', setFavorite);
+store.addEventListener('update-basket', setBuyed);
+store.addEventListener('update-beers', () => { setBuyed(); setFavorite(); });
 
-new SearchForm(onSearch);
+const searchForm = new SearchForm(router);
 
 appStart();
 
 function appStart() {
-    console.log('appStart');
-    getAllFavourite(); // 0 -> 19
-    renderBeerList(); // 1 -> 156
+    getAllFavourite()
+        .then(() => router.currentRoute());
+}
+
+function getBeerData(beerId) {
+    return beerApi.getBeer({ ids: beerId })
+        .then(data => {
+            if (!data || !data[0]) {
+                return ;
+            }
+
+            const storedBeer = store.get('beers');
+            const beerData = data[0];
+
+            storedBeer[beerData.id] = beerData;
+
+            store.set('beers', storedBeer);
+        });
 }
 
 function getAllFavourite() {
@@ -46,7 +63,8 @@ function getAllFavourite() {
         .then(data => {
             store.set('favorite', data.reduce(
                 (favorite, {id: storeId, beerId}) => {
-                    favorite[beerId] = storeId;
+                    favorite[beerId] = +storeId;
+
                     return favorite;
                 },
                 {}
@@ -59,33 +77,63 @@ function renderApp(children = []) {
     appEl.append(...children);
 }
 
-function onSearch(searchValue) {
-    return renderBeerList({
-        per_page: 12,
-        page: 1,
-        beer_name: encodeURI(searchValue)
-    });
-}
+function renderFavorites() {
+    const favorite = Object.values(store.get('favorite'));
+    const options = {
+        ...router.params,
+        ...pagination.options,
+        ids: favorite.join('|')
+    };
 
-function renderBeerList(options = pagination.options) {
+    if (!options.ids) {
+        return Promise.resolve([]);
+    }
+
+    if (!options.beer_name) {
+        delete options.beer_name;
+    }
+
+    delete options.route;
+
     return beerApi
         .getBeer(options)
-        .then(data => {
-            const storedBeer = store.get('beers');
-            const favoriteBeer = store.get('favorite');
-            beers = data.map(beerData => {
-                storedBeer[beerData.id] = beerData;
+        .then(renderBeerData);
+}
 
-                return new Beer(beerData, {
-                    buy: onBuy,
-                    decrease: onDecrease,
-                    togleFavorite: togleFavorite,
-                }, beerData.id in favoriteBeer);
-            });
+function renderBeerList() {
+    const options = {
+        ...router.params,
+        ...pagination.options
+    };
 
-            store.set('beers', storedBeer);
-            renderApp(beers.map(beer => beer.render()));
-        });
+    if (!options.beer_name) {
+        delete options.beer_name;
+    }
+
+    delete options.route;
+
+    return beerApi
+        .getBeer(options)
+        .then(renderBeerData);
+}
+
+function renderBeerData(data) {
+    const storedBeer = store.get('beers');
+    beers = data.map(beerData => {
+        storedBeer[beerData.id] = beerData;
+
+        return new Beer(beerData, {
+            buy: onBuy,
+            decrease: onDecrease,
+            togleFavorite: togleFavorite,
+        }, false);
+    });
+
+    store.set('beers', storedBeer);
+    renderApp(beers.map(beer => beer.render()));
+    setFavorite();
+    setBuyed();
+    basket.updatePrice();
 }
 
 function onBuy(beer) {
@@ -121,26 +169,24 @@ function togleFavorite(beer) {
 
 function setFavorite() {
     if (beers) {
-        const favorite = store.get('favorite');
+        const favorite = Object.values(store.get('favorite'));
 
-        if (Object.keys(favorite).length > 0) {
+        if (favorite.length > 0) {
             beers.forEach(beer => {
-                beer.setFavorite(beer.id in favorite);
+                beer.setFavorite(favorite.includes(beer.id));
             });
         }
     }
 }
 
-function onFavoriteUpdate() {
-    setFavorite();
-}
-
-function onBeersUpdate() {
-    setFavorite();
+function setBuyed() {
+    if (beers) {
+        beers.forEach(beer => beer.setBuyed(basket.getBeerCount(beer.id)));
+    }
 }
 
 function onHistoryChanges() {
-    console.log('onHistoryChanges');
-    renderBeerList()
-        .then(() => pagination.update());
+    router.currentRoute()
+        .then(() => pagination.update())
+        .then(() => searchForm.update());
 }

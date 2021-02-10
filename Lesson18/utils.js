@@ -20,7 +20,7 @@ export function parseParams(search = location.search) {
         .forEach(paramStr => {
             const [key, value] = paramStr.split('=');
 
-            params[key] = value;
+            params[key] = decodeURI(value);
         });
 
     return params;
